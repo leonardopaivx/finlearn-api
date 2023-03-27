@@ -1,0 +1,33 @@
+# Visual Studio Code
+.devcontainer/
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Python
+__pycache__/
+.env
+.env.local
+.env.prod
+.env.test
+.env_test
+*.pyc
+venv/
+.pdm.toml
+__pypackages__/
+
+# IDE JetBrains
+.idea/
+
+# SQLite3 (usado em testes)
+test.db
+
+# Volumes docker
+/docker/data**/
+
+# Test reports
+.coverage
+/reports/
+
+private.key
