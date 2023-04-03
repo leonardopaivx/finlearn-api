@@ -1,16 +1,11 @@
 {
-  "version": 1,
-  "builds": [
-    {
-      "name": "web",
-      "env": {
-        "PYTHONUNBUFFERED": "1",
-        "WORKERS_PER_CORE": "1",
-        "WEB_CONCURRENCY": "${{env.WEB_CONCURRENCY}}",
-        "PORT": "${{env.PORT}}"
-      },
-      "buildCommand": "poetry install",
-      "runCommand": "alembic upgrade head && gunicorn -k uvicorn.workers.UvicornWorker -w 4 -b 0.0.0.0:$PORT app.main:app"
-    }
-  ]
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT",
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+  }
 }
