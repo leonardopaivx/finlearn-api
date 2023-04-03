@@ -7,6 +7,8 @@ class Settings(BaseSettings):
 
     TEST_ENV: bool = False
 
+    SECRET_KEY: str | None
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
