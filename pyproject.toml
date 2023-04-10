@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Leonardo Magalhães <leonardo@biomainvestimentos.com>"]
 readme = "README.md"
-packages = [{include = "finlearn_api"}]
+
 
 [tool.poetry.dependencies]
 python = "^3.11.1"
