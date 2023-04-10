@@ -15,6 +15,7 @@ def create_user(db: Session, input_user_data: UserInputSchema) -> User:
         email=input_user_data.email,
         name=input_user_data.name,
         telephone=input_user_data.telephone,
+        role=input_user_data.role,
         password=input_user_data.password,
     )
 
