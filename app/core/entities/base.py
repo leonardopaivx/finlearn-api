@@ -6,6 +6,7 @@ from sqlalchemy.orm import as_declarative, declared_attr
 @as_declarative()
 class Base:
     __name__: str
+    __allow_unmapped__ = True
 
     # Generate __tablename__ automatically
 

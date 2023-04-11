@@ -1,8 +1,11 @@
 from enum import Enum
 import sqlalchemy as sa
 from sqlalchemy.types import VARCHAR, TypeDecorator
+from sqlalchemy.orm import relationship
 from app.core.entities.base import Base
 from app.core.entities.audits import Audits
+
+from app.domain.social_media.entities.talk import Talk
 
 
 class UserRoleList(str, Enum):
@@ -34,3 +37,5 @@ class User(Base, Audits):
     role = sa.Column(RolesDB(UserRoleList))
     telephone = sa.Column(sa.String, nullable=True)
     password = sa.Column(sa.String)
+
+    talk_data: list["Talk"] = relationship("Talk", backref="user")

@@ -9,6 +9,8 @@ from app.config.settings import setting
 from alembic import context
 
 from app.domain.user.entities.user import *
+from app.domain.social_media.entities.talk import *
+from app.domain.social_media.entities.post import *
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
