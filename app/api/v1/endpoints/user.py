@@ -19,6 +19,11 @@ def create_user(
     user_input: UserInputSchema,
     db: Session = Depends(get_db),
 ):
+    """
+    Registra um usuário.
+
+    - Acesso: ALL
+    """
     user_found = user_repository.get_by_email(db=db, email=user_input.email)
 
     if user_found:

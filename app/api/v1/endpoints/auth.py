@@ -18,6 +18,11 @@ router = APIRouter()
 
 @router.post("/login")
 def login(login_data: LoginInputSchema, db: Session = Depends(get_db)):
+    """
+    Rota para retornar um access_token.
+
+    - Acesso: ALL
+    """
     email = login_data.email
     password = login_data.password
 

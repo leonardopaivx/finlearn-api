@@ -43,6 +43,6 @@ def get_talk(
     """
     Retorna Todas as Conversas do Banco.
 
-    - Acesso: ADMIN
+    - Acesso: ALL
     """
     return talk_repository.get_talk(db=db)

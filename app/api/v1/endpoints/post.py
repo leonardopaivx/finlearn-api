@@ -23,6 +23,11 @@ def create_post(
     db: Session = Depends(get_db),
     _current_user: User = Depends(authenticate_user_api_endpoints),
 ):
+    """
+    Cria uma publicação a partir de uma conversa.
+
+    - Acesso: ALL
+    """
     post = post_repository.create_post(db=db, input_post_data=post_input)
 
     return post
@@ -36,6 +41,6 @@ def get_post(
     """
     Retorna Todos os Posts do Banco.
 
-    - Acesso: ADMIN
+    - Acesso: ALL
     """
     return post_repository.get_post(db=db)
