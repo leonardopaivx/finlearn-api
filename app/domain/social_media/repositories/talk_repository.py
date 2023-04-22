@@ -14,13 +14,25 @@ def exists(db: Session, input_id: int) -> bool:
     return stmt_result.scalar() is not None
 
 
-def create_talk(db: Session, input_talk_data: TalkInputSchema) -> Talk:
+def create_talk(db: Session, title: str, user_id: int) -> Talk:
     talk = Talk(
-        title=input_talk_data.title,
-        user_id=input_talk_data.user_id,
+        title=title,
+        user_id=user_id,
     )
 
     db.add(talk)
     db.commit()
 
     return talk
+
+
+def get_talk(db: Session) -> list[Talk]:
+    stmt = sa.select(Talk)
+    stmt_result = db.execute(stmt)
+    return stmt_result.scalars().all()
+
+
+def get_talk_by_id(db: Session, input_id: int) -> Talk:
+    stmt = sa.select(Talk).where(Talk.id == input_id)
+    stmt_result = db.execute(stmt)
+    return stmt_result.scalar()

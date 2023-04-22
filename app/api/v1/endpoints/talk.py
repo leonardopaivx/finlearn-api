@@ -21,8 +21,28 @@ router = APIRouter()
 def create_talk(
     talk_input: TalkInputSchema,
     db: Session = Depends(get_db),
-    _current_user: User = Depends(authenticate_user_api_endpoints),
+    current_user: User = Depends(authenticate_user_api_endpoints),
 ):
-    talk = talk_repository.create_talk(db=db, input_talk_data=talk_input)
+    """
+    Cria uma conversa a partir de um usuário autenticado.
+
+    - Acesso: ADMIN
+    """
+    talk = talk_repository.create_talk(
+        db=db, title=talk_input.title, user_id=current_user.id
+    )
 
     return talk
+
+
+@router.get("", response_model=list[TalkOutputSchema])
+def get_talk(
+    db: Session = Depends(get_db),
+    _current_user: User = Depends(authenticate_user_api_endpoints),
+):
+    """
+    Retorna Todas as Conversas do Banco.
+
+    - Acesso: ADMIN
+    """
+    return talk_repository.get_talk(db=db)

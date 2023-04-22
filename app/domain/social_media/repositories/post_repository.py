@@ -24,3 +24,21 @@ def create_post(db: Session, input_post_data: PostInputSchema) -> Post:
     db.commit()
 
     return post
+
+
+def get_post(db: Session) -> list[Post]:
+    stmt = sa.select(Post)
+    stmt_result = db.execute(stmt)
+    return stmt_result.scalars().all()
+
+
+def get_post_by_id(db: Session, input_id: int) -> Post:
+    stmt = sa.select(Post).where(Post.id == input_id)
+    stmt_result = db.execute(stmt)
+    return stmt_result.scalar()
+
+
+def get_post_by_talk(db: Session, input_id: int) -> list[Post]:
+    stmt = sa.select(Post).where(Post.talk_id == input_id)
+    stmt_result = db.execute(stmt)
+    return stmt_result.scalars().all()

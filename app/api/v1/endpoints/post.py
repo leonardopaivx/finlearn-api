@@ -26,3 +26,16 @@ def create_post(
     post = post_repository.create_post(db=db, input_post_data=post_input)
 
     return post
+
+
+@router.get("", response_model=list[PostOutputSchema])
+def get_post(
+    db: Session = Depends(get_db),
+    _current_user: User = Depends(authenticate_user_api_endpoints),
+):
+    """
+    Retorna Todos os Posts do Banco.
+
+    - Acesso: ADMIN
+    """
+    return post_repository.get_post(db=db)

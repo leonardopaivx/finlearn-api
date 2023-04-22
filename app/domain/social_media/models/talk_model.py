@@ -3,6 +3,7 @@
 
 from pydantic import BaseModel
 from app.domain.user.entities.user import UserRoleList
+from app.domain.social_media.models.post_model import PostOutputSchema
 
 
 class TalkSchema(BaseModel):
@@ -13,13 +14,14 @@ class TalkSchema(BaseModel):
 
 class TalkInputSchema(BaseModel):
     title: str
-    user_id: int
+    # user_id: int
 
 
 class TalkOutputSchema(BaseModel):
     id: int
     title: str
     user_id: int
+    post_data: list[PostOutputSchema]
 
     class Config:
         orm_mode = True

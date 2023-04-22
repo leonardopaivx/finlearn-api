@@ -43,10 +43,11 @@ def get_me(current_user: User = Depends(authenticate_user_api_endpoints)):
 
     - Acesso: ALL
     """
+    print(current_user)
     return UserOutputSchema(
         id=current_user.id,
         name=current_user.name,
         telephone=current_user.telephone,
         email=current_user.email,
-        phone=current_user.phone,
+        role=current_user.role,
     )
