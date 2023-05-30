@@ -4,6 +4,7 @@ from sqlalchemy.types import VARCHAR, TypeDecorator
 from sqlalchemy.orm import relationship
 from app.core.entities.base import Base
 from app.core.entities.audits import Audits
+from app.domain.social_media.entities.post import Post, PostLike
 
 from app.domain.social_media.entities.talk import Talk
 
@@ -39,3 +40,5 @@ class User(Base, Audits):
     password = sa.Column(sa.String)
 
     talk_data: list["Talk"] = relationship("Talk", backref="user")
+    post_data : list["Post"] = relationship("Post", backref="user")
+    likes_data : list["PostLike"] = relationship("PostLike", backref="user")
