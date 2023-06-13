@@ -16,13 +16,20 @@ class PostInputSchema(BaseModel):
     talk_id: int
 
 
+class LikeSchema(BaseModel):
+    user_id: int
+    class Config:
+        orm_mode = True
+
 class PostOutputSchema(BaseModel):
     id: int
     base_text: str
     talk_id: int
+    likes_data : list[LikeSchema] | None
 
     class Config:
         orm_mode = True
+
 
 class PostLikeSchema(BaseModel):
     id: int

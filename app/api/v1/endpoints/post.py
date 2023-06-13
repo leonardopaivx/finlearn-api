@@ -47,7 +47,7 @@ def get_post(
     return post_repository.get_post(db=db)
 
 
-@router.post("/create/like", status_code=201, response_model=IdOut)
+@router.post("/like", status_code=201, response_model=IdOut)
 def create_post_like(
     post_id: int,
     db: Session = Depends(get_db),
