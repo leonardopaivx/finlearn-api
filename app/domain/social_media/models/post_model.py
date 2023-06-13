@@ -23,3 +23,20 @@ class PostOutputSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
+class PostLikeSchema(BaseModel):
+    id: int
+    user_id: int
+    post_id: int
+
+class PostLikeInputSchema(BaseModel):
+    user_id: int
+    post_id: int
+
+class PostLikeOutputSchema(BaseModel):
+    id: int
+    user_id: int
+    post_id: int
+    
+    class Config:
+        orm_mode = True

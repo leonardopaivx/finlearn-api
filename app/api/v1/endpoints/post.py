@@ -7,6 +7,7 @@ from app.core.middleware.error_handler import ErrorModel
 from app.core.models import IdOut
 from app.domain.social_media.models.post_model import (
     PostInputSchema,
+    PostLikeInputSchema,
     PostOutputSchema,
     PostSchema,
 )
@@ -26,7 +27,7 @@ def create_post(
     """
     Cria uma publicação a partir de uma conversa.
 
-    - Acesso: ALL
+    - Acesso: User
     """
     post = post_repository.create_post(db=db, input_post_data=post_input)
 
@@ -44,3 +45,21 @@ def get_post(
     - Acesso: ALL
     """
     return post_repository.get_post(db=db)
+
+
+@router.post("/create/like", status_code=201, response_model=IdOut)
+def create_post_like(
+    post_like_input: PostLikeInputSchema,
+    db: Session = Depends(get_db),
+    _current_user: User = Depends(authenticate_user_api_endpoints),
+):
+    """
+    Usuário autenticado realiza um like em um post.
+
+    - Acesso: User
+    """
+    post_like = post_repository.create_post_like(
+        db=db, input_post_like_data=post_like_input
+    )
+
+    return post_like

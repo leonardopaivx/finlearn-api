@@ -1,8 +1,9 @@
 import sqlalchemy as sa
 from sqlalchemy.orm import Session
-from app.domain.social_media.entities.post import Post
+from app.domain.social_media.entities.post import Post, PostLike
 from app.domain.social_media.models.post_model import (
     PostInputSchema,
+    PostLikeInputSchema,
     PostOutputSchema,
     PostSchema,
 )
@@ -42,3 +43,16 @@ def get_post_by_talk(db: Session, input_id: int) -> list[Post]:
     stmt = sa.select(Post).where(Post.talk_id == input_id)
     stmt_result = db.execute(stmt)
     return stmt_result.scalars().all()
+
+
+def create_post_like(
+    db: Session, input_post_like_data: PostLikeInputSchema
+) -> PostLike:
+    post_like = PostLike(
+        user_id=input_post_like_data.user_id, post_id=input_post_like_data.post_id
+    )
+
+    db.add(post_like)
+    db.commit()
+
+    return post_like
