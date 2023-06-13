@@ -6,6 +6,7 @@ from app.domain.social_media.models.post_model import (
     PostLikeInputSchema,
     PostOutputSchema,
     PostSchema,
+    PostCreateSchema
 )
 
 
@@ -15,10 +16,11 @@ def exists(db: Session, input_id: int) -> bool:
     return stmt_result.scalar() is not None
 
 
-def create_post(db: Session, input_post_data: PostInputSchema) -> Post:
+def create_post(db: Session, input_post_data: PostCreateSchema) -> Post:
     post = Post(
         base_text=input_post_data.base_text,
         talk_id=input_post_data.talk_id,
+        user_id=input_post_data.user_id
     )
 
     db.add(post)

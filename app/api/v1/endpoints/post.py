@@ -10,6 +10,7 @@ from app.domain.social_media.models.post_model import (
     PostLikeInputSchema,
     PostOutputSchema,
     PostSchema,
+    PostCreateSchema
 )
 from app.domain.social_media.repositories import post_repository
 from app.domain.user.entities.user import User
@@ -22,14 +23,17 @@ router = APIRouter()
 def create_post(
     post_input: PostInputSchema,
     db: Session = Depends(get_db),
-    _current_user: User = Depends(authenticate_user_api_endpoints),
+    current_user: User = Depends(authenticate_user_api_endpoints),
 ):
     """
     Cria uma publicação a partir de uma conversa.
 
     - Acesso: User
     """
-    post = post_repository.create_post(db=db, input_post_data=post_input)
+
+    post_data = PostCreateSchema(talk_id=post_input.talk_id, base_text=post_input.base_text, user_id=current_user.id)
+    
+    post = post_repository.create_post(db=db, input_post_data=post_data)
 
     return post
 

@@ -39,6 +39,6 @@ class User(Base, Audits):
     telephone = sa.Column(sa.String, nullable=True)
     password = sa.Column(sa.String)
 
-    talk_data: list["Talk"] = relationship("Talk", backref="user")
-    post_data : list["Post"] = relationship("Post", backref="user")
-    likes_data : list["PostLike"] = relationship("PostLike", backref="user")
+    talk_data: list["Talk"] = relationship("Talk", back_populates="user")
+    post_data : list["Post"] = relationship("Post", back_populates="user")
+    likes_data : list["PostLike"] = relationship("PostLike", back_populates="user")

@@ -46,4 +46,5 @@ def get_user_talks(
 
     - Acesso: ALL
     """
+
     return user_repository.get_user_talks(db=db, input_id=current_user.id)

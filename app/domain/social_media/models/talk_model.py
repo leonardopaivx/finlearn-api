@@ -21,8 +21,8 @@ class TalkInputSchema(BaseModel):
 class TalkOutputSchema(BaseModel):
     id: int
     title: str
-    user: BasicUserSchema
-    post_data: list[PostOutputSchema]
+    user: BasicUserSchema | None
+    post_data: list[PostOutputSchema] | None
 
     class Config:
         orm_mode = True

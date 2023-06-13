@@ -13,8 +13,13 @@ class Post(Base, Audits):
     user_id: int = sa.Column(sa.ForeignKey("user.id", ondelete="SET NULL"))
     likes_data : list["PostLike"] = relationship("PostLike", backref="post")
 
+    user = relationship("User", back_populates="post_data")
+
+
 class PostLike(Base, Audits):
     id: int = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
 
     user_id: int = sa.Column(sa.ForeignKey("user.id", ondelete="SET NULL"))
     post_id: int = sa.Column(sa.ForeignKey("post.id", ondelete="SET NULL"))
+
+    user = relationship("User", back_populates="likes_data")

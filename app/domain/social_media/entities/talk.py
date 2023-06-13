@@ -14,3 +14,5 @@ class Talk(Base, Audits):
     user_id: int = sa.Column(sa.ForeignKey("user.id", ondelete="SET NULL"))
 
     post_data: list["Post"] = relationship("Post", backref="talk")
+
+    user = relationship("User", back_populates="talk_data")
