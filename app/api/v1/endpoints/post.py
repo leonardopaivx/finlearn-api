@@ -49,15 +49,17 @@ def get_post(
 
 @router.post("/create/like", status_code=201, response_model=IdOut)
 def create_post_like(
-    post_like_input: PostLikeInputSchema,
+    post_id: int,
     db: Session = Depends(get_db),
-    _current_user: User = Depends(authenticate_user_api_endpoints),
+    current_user: User = Depends(authenticate_user_api_endpoints),
 ):
     """
     Usuário autenticado realiza um like em um post.
 
     - Acesso: User
     """
+
+    post_like_input = PostLikeInputSchema(user_id=current_user.id, post_id=post_id)
     post_like = post_repository.create_post_like(
         db=db, input_post_like_data=post_like_input
     )
