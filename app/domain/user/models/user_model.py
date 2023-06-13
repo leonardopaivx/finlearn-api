@@ -26,6 +26,13 @@ class LoginInputSchema(BaseModel):
     email: str
     password: str
 
+class BasicUserSchema(BaseModel):
+    id: int
+    name: str
+    email: str
+
+    class Config:
+        orm_mode = True
 
 class UserOutputSchema(BaseModel):
     id: int

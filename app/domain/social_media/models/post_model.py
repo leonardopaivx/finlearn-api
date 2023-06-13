@@ -3,6 +3,7 @@
 
 from pydantic import BaseModel
 from app.domain.user.entities.user import UserRoleList
+from app.domain.user.models.user_model import BasicUserSchema
 
 
 class PostSchema(BaseModel):
@@ -21,10 +22,12 @@ class LikeSchema(BaseModel):
     class Config:
         orm_mode = True
 
+
+
 class PostOutputSchema(BaseModel):
     id: int
     base_text: str
-    talk_id: int
+    user: BasicUserSchema
     likes_data : list[LikeSchema] | None
 
     class Config:
