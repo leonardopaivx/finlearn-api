@@ -7,7 +7,7 @@ from app.core.entities.audits import Audits
 
 class Post(Base, Audits):
     id: int = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
-    base_text: str = sa.Column(VARCHAR(255))
+    base_text: str = sa.Column(VARCHAR(500))
 
     talk_id: int = sa.Column(sa.ForeignKey("talk.id", ondelete="SET NULL"))
     user_id: int = sa.Column(sa.ForeignKey("user.id", ondelete="SET NULL"))
