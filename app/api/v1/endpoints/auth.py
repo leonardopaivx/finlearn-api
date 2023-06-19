@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from fastapi.security import OAuth2PasswordRequestForm
 from app.core.middleware.db import get_db
 from app.core.middleware.error_handler import ErrorModel
 from app.domain.user.entities.user import User
@@ -17,8 +18,13 @@ router = APIRouter()
 
 
 @router.post("/login")
-def login(login_data: LoginInputSchema, db: Session = Depends(get_db)):
-    email = login_data.email
+def login( login_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    """
+    Rota para retornar um access_token.
+
+    - Acesso: ALL
+    """
+    email = login_data.username
     password = login_data.password
 
     user = user_repository.get_by_email(db=db, email=email)
@@ -43,10 +49,11 @@ def get_me(current_user: User = Depends(authenticate_user_api_endpoints)):
 
     - Acesso: ALL
     """
+    print(current_user)
     return UserOutputSchema(
         id=current_user.id,
         name=current_user.name,
         telephone=current_user.telephone,
         email=current_user.email,
-        phone=current_user.phone,
+        role=current_user.role,
     )

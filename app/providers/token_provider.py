@@ -1,4 +1,4 @@
-from jose import jwt
+import jwt
 from datetime import datetime, timedelta
 from app.config.settings import setting
 

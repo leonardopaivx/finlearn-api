@@ -2,6 +2,7 @@ import sqlalchemy as sa
 from sqlalchemy.orm import Session
 from app.domain.user.entities.user import User
 from app.domain.user.models.user_model import LoginInputSchema, UserInputSchema
+from app.domain.social_media.entities.talk import Talk
 
 
 def exists(db: Session, input_id: int) -> bool:
@@ -15,6 +16,7 @@ def create_user(db: Session, input_user_data: UserInputSchema) -> User:
         email=input_user_data.email,
         name=input_user_data.name,
         telephone=input_user_data.telephone,
+        role=input_user_data.role,
         password=input_user_data.password,
     )
 
@@ -34,3 +36,9 @@ def get_user_by_id(db: Session, input_id: int) -> User:
     stmt = sa.select(User).where(User.id == input_id)
     stmt_result = db.execute(stmt)
     return stmt_result.scalar()
+
+
+def get_user_talks(db: Session, input_id: int) -> list[Talk]:
+    stmt = sa.select(User).where(User.id == input_id)
+    stmt_result = db.execute(stmt)
+    return stmt_result.scalar().talk_data
